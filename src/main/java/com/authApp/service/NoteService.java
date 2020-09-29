@@ -13,7 +13,7 @@ public class NoteService {
     private String url;
 
     public NoteService(){
-        this.url = "https://127.0.0.1:8081";
+        this.url = "https://"+System.getenv("HOSTPORT");
         ssl();
     }
 
