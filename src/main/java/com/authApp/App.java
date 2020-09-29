@@ -1,5 +1,6 @@
 package com.authApp;
 
+import com.authApp.service.NoteService;
 import com.google.common.hash.Hashing;
 import org.json.JSONObject;
 import spark.Spark;
@@ -9,10 +10,12 @@ import java.nio.charset.StandardCharsets;
  * Hello world!
  *
  */
-public class App 
+public class App
 {
     public static void main( String[] args ) {
+        NoteService service = new NoteService();
         Spark.port(getPort());
+        Spark.secure("authkeystore.p12","authapp","authTrustStore","authapp");
         Spark.staticFileLocation("/static");
         Spark.post("/login",(req,res)->{
             req.session(true);
@@ -33,12 +36,20 @@ public class App
             rq.session().attribute("email",null);
             return "";
         });
+        Spark.get("/note",(rq,res)->{
+            res.header("Content-Type","application/json");
+            return service.getNotes();
+        });
+        Spark.post("/note",(rq,res)->{
+            service.addNote(rq.body());
+            return "";
+        });
     }
 
     static int getPort(){
         if(System.getenv("PORT")!=null){
             return Integer.parseInt(System.getenv("PORT"));
         }
-        return 80;
+        return 8080;
     }
 }
