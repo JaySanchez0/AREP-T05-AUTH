@@ -36,7 +36,7 @@ public class NoteService {
 
     public void addNote(String note){
         try {
-            System.out.println(note);
+            //System.out.println(note);
             URL u = new URL(url+"/note");
             HttpURLConnection con = (HttpURLConnection) u.openConnection();
             con.setRequestMethod("POST");

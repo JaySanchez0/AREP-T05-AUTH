@@ -15,13 +15,63 @@
                 .then((data)=>{
                     if(!JSON.parse(data)){
                         location.href="index.html"
+                    }else{
+                         loadData();
                     }
                 })
+                }
+
+                function add(){
+                    var a = $("#affair").val();
+                    var b = $("#description").val();
+                    $.post({
+                        url:"/note",
+                        data:JSON.stringify({affair:a,description:b}),
+                        contentType:"application/json"
+                    }).then(()=>{
+                        $("#tab").append($("<tr><td>"+a+"</td><td>"+b+"</td></tr>"));
+                    },()=>{
+                        alert("Not Added");
+                    })
                 }
         </script>
     </head>
     <body onload="isLogged()">
         <h1>Notes</h1>
         <button onclick="logout()">Logout</button>
+        <br><br>
+        <center>
+            <div style="width:100%">
+                <div style="display:flex; flex-direction:row; width:100%;">
+                    <div style="width:50%; text-align:center;">Affair</div>
+                    <div style="width:50%; text-align:center;"><input type="text" id="affair"></div>
+                </div>
+                <div style="width:100%; height:10px;"></div>
+                <div style="display:flex; flex-direction:row; width:100%;">
+                    <div style="width:50%; text-align:center;">Description</div>
+                    <div style="width:50%; text-align:center;"><input type="text" id="description"></div>
+                </div>
+                <div style="width:100%; height:10px;"></div>
+                <center><button onclick="add()" style="background:blue; color:white; width:50px;">Add</button></center>
+            </div>
+        </center>
+        <br><br>
+        <table style="width:100%; border-collapse:collapse;" border="1" id="tab">
+            <tr>
+                <td style="width:50%; background:gray; color:white;">Affair</td>
+                <td style="width:50%; background:gray; color:white;">Description</td>
+            </tr>
+        </table>
+        <script>
+            function loadData(){
+                var tab = $("#tab");
+                $.get({url:"/note"}).then((data)=>{
+                    data.forEach((item)=>{
+                        console.log(item);
+                        tab.append($("<tr><td style='width:50%;'>"+item.description+"</td><td style='width:50%;'>"+item.affair+"</td></tr>"));
+                    });
+                },()=>alert("Not loaded"));
+            }
+        </script>
     </body>
 </html>
