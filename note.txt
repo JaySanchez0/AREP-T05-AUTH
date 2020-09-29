@@ -1,0 +1,12 @@
+keytool -genkeypair -alias authappkeypair -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore authkeystore.p12 -validity 3650 
+keytool -export -keystore ./authkeystore.p12 -alias authappkeypair -file authcert.cer 
+keytool -import -file ./authcert.cer -alias firstCA -keystore authTrustStore
+
+
+authapp
+
+
+keytool -genkeypair -alias serviceappkeypair -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore servicekeystore.p12 -validity 3650 
+keytool -export -keystore ./servicekeystore.p12 -alias serviceappkeypair -file servicecert.cer 
+keytool -import -file ./servicecert.cer -alias firstCA -keystore serviceTrustStore
+serviceapp
