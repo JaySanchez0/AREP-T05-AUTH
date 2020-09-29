@@ -1,0 +1,27 @@
+<html>
+    <head><title>Note</title>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script type="text/javascript">
+                function logout(){
+                    $.get({url:"/logout"}).then((data)=>{
+                        location.href="index.html";
+                    },()=>{
+                        alert("No se pudo cerrar sesion");
+                    });
+                }
+
+                function isLogged(){
+                $.get({url:"/isLogged"})
+                .then((data)=>{
+                    if(!JSON.parse(data)){
+                        location.href="index.html"
+                    }
+                })
+                }
+        </script>
+    </head>
+    <body onload="isLogged()">
+        <h1>Notes</h1>
+        <button onclick="logout()">Logout</button>
+    </body>
+</html>
