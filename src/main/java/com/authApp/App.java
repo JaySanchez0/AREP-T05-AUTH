@@ -15,7 +15,7 @@ public class App
     public static void main( String[] args ) {
         NoteService service = new NoteService();
         Spark.port(getPort());
-        Spark.secure("authkeystore.p12","authapp","authTrustStore","authapp");
+        Spark.secure("authkeystore.p12","authapp","serviceTrustStore","serviceapp");
         Spark.staticFileLocation("/static");
         Spark.post("/login",(req,res)->{
             req.session(true);
