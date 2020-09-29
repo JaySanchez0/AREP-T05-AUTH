@@ -37,12 +37,18 @@ public class App
             return "";
         });
         Spark.get("/note",(rq,res)->{
-            res.header("Content-Type","application/json");
-            return service.getNotes();
+            if(rq.session().attribute("email")!=null) {
+                res.header("Content-Type", "application/json");
+                return service.getNotes();
+            }
+            return "";
         });
         Spark.post("/note",(rq,res)->{
-            service.addNote(rq.body());
+            if(rq.session().attribute("email")!=null) {
+                service.addNote(rq.body());
+            }
             return "";
+
         });
     }
 

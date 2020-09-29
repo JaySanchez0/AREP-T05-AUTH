@@ -36,18 +36,22 @@ public class NoteService {
 
     public void addNote(String note){
         try {
+            System.out.println(note);
             URL u = new URL(url+"/note");
             HttpURLConnection con = (HttpURLConnection) u.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type","application/json");
-            PrintWriter out = new PrintWriter(con.getOutputStream());
+            con.setDoOutput(true);
+            PrintWriter out = new PrintWriter(con.getOutputStream(),true);
             out.println(note);
+            out.close();
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String resp = "";
             String line;
             while ((line = in.readLine())!=null){
                 resp = resp+line+"\n";
             }
+            in.close();
         }catch (Exception e){
             e.printStackTrace();
         }
