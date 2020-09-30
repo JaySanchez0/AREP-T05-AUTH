@@ -12,11 +12,18 @@ public class NoteService {
 
     private String url;
 
+    /**
+     * Servicio de notas
+     */
     public NoteService(){
         this.url = "https://"+System.getenv("HOSTPORT");
         ssl();
     }
 
+    /**
+     *
+     * @return obtiene las notas de una url externa
+     */
     public String getNotes(){
         try {
             URL u = new URL(url+"/note");
@@ -34,6 +41,10 @@ public class NoteService {
         }
     }
 
+    /**
+     * Almacena una nota
+     * @param note nota a ser almacenada
+     */
     public void addNote(String note){
         try {
             //System.out.println(note);
@@ -57,6 +68,9 @@ public class NoteService {
         }
     }
 
+    /**
+     * Configura para poder acceder mediante ssl
+     */
     private void ssl(){
         try {
             File trustStoreFile = new File("serviceTrustStore");

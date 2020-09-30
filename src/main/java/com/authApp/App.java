@@ -12,6 +12,10 @@ import java.nio.charset.StandardCharsets;
  */
 public class App
 {
+    /**
+     * Controlador seguro
+     * @param args
+     */
     public static void main( String[] args ) {
         NoteService service = new NoteService();
         Spark.port(getPort());
