@@ -16,7 +16,8 @@ public class NoteService {
      * Servicio de notas
      */
     public NoteService(){
-        this.url = "https://"+System.getenv("HOSTPORT");
+        //this.url = "https://"+System.getenv("HOSTPORT");
+        this.url = "https://localhost:8081";
         ssl();
     }
 
@@ -86,8 +87,8 @@ public class NoteService {
             SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(null, tmf.getTrustManagers(), null);
             SSLContext.setDefault(sslContext);
-            javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
-                    (hostname, sslSession) -> true);
+            /*javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
+                    (hostname, sslSession) -> true);*/
         }catch(Exception e){
             e.printStackTrace();
         }
