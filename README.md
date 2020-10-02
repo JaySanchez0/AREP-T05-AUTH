@@ -40,6 +40,9 @@ En las imagenes de docker se encuentra con esta linea, si desea correrlo porfavo
 En el produccion se dejo en el constructor del servicio recibir el host:puerto como variable de entorno, aqui por la modificacion se va a dejar quemado localhost temporalmente, como vera esta linea de recibir la variable de entorno.
 
 
+La imagen de docker funciona para cualquier host ya que solo valida el certificado y no el host.
+
+
 
 
 
